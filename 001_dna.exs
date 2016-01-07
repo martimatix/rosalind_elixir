@@ -13,10 +13,9 @@
 # times that the symbols 'A', 'C', 'G', and 'T' occur in ss.
 #
 # Sample Dataset
-#
 # AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC Sample
+# 
 # Output
-#
 # 20 12 17 21
 
 defmodule DNA do

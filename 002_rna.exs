@@ -11,9 +11,9 @@
 # Return: The transcribed RNA string of tt.
 #
 # Sample Dataset
+# GATGGAACTTGACTACGTAAATT
 #
-# GATGGAACTTGACTACGTAAATT Sample Output
-#
+# Sample Output
 # GAUGGAACUUGACUACGUAAAUU
 
 Code.require_file "rosalind_module.exs", __DIR__
