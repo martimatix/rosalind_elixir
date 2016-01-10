@@ -26,5 +26,9 @@
 Code.require_file "rosalind_module.exs", __DIR__
 Code.require_file "fasta_module.exs", __DIR__
 
-Fasta.read("rosalind_gc.txt")
-# IO.puts Rosalind.gc_content("CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT")
+fasta = Fasta.read("rosalind_gc.txt")
+  |> Enum.max_by(fn(fasta) -> Rosalind.gc_content(fasta.value) end)
+
+IO.puts fasta.id
+IO.puts Rosalind.gc_content(fasta.value)
+          |> Float.round(6)

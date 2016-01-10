@@ -11,7 +11,6 @@ defmodule Fasta do
       |> compile
   end
 
-
   # Returns a single tuple - for when there is only FASTA in the file
   def read(filename, :single) do
     read(filename)
