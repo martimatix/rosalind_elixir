@@ -11,8 +11,7 @@
 {n, k} = {5, 3}
 
 fib = Stream.unfold({1, 1}, fn {a, b} -> {a, {b, k * a + b}} end)
-rabbits = fib
-            |> Enum.take(n)
-            |> List.last
-
-IO.puts rabbits
+fib
+  |> Enum.take(n)
+  |> List.last
+  |> IO.inspect

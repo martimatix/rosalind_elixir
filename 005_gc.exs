@@ -24,3 +24,7 @@
 # 60.919540
 
 Code.require_file "rosalind_module.exs", __DIR__
+Code.require_file "fasta_module.exs", __DIR__
+
+Fasta.read("rosalind_gc.txt")
+# IO.puts Rosalind.gc_content("CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT")
