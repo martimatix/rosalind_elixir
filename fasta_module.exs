@@ -2,12 +2,25 @@
 
 defmodule Fasta do
 
+  # Returns a list of tuples - first element is the FASTA label
+  # and second is the FASTA string
   def read(filename) do
-    # Returns a map with the FASTA label as a key and
-    # the FASTA string as the value
     File.stream!(filename)
       |> Stream.map(fn(line) -> String.rstrip(line) end)
       |> compile
+  end
+
+
+  # Returns a single tuple - for when there is only FASTA in the file
+  def read(filename, :single) do
+    read(filename)
+      |> List.first
+  end
+
+  # Returns a map with the FASTA label as a key and
+  # the FASTA string as the value
+  def read(filename, :map) do
+    read(file)
       |> Enum.into(%{})
   end
 
