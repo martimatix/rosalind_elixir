@@ -14,44 +14,54 @@
 # Sample Output
 # 0.78333
 
-# Mario's note:
-Although there is a mathematical formula to solve this problem almost
-instantaneously, from a programming perspective it is far more interesting to
-obtain the answer by simulation. Hence, that is the method shown below. Warning:
-execution time is slow!
-
 defmodule MendelFirstLaw do
-  @dataset [{'k', 2}, {'m', 2}, {'n', 2}]
-  @trials 3000000
+  @k 2
+  @m 2
+  @n 2
+  @dataset [{'k', @k }, {'m', @m}, {'n', @n}]
+  @num_organisms @k + @m + @n
 
   def solve do
     Enum.reduce(@dataset, [], fn(organism, acc) -> acc ++ make_copies(organism) end)
-      |> conduct_trials
+      |> Enum.with_index
+      |> mate_organisms
+      |> List.flatten
       |> Enum.sum
       |> calculate_probability
   end
 
-  def conduct_trials(organisms) do
-    Enum.map((0..@trials), fn(x) ->  Enum.take_random(organisms, 2)
-                                      |> probabilitiy_homozygous_dominant end)
-  end
-
-  def make_copies(organism) do
+  defp make_copies(organism) do
     List.duplicate(elem(organism, 0), elem(organism, 1))
   end
 
-  def probabilitiy_homozygous_dominant(organisms) do
+  # Mate every organism with another once and only once
+  defp mate_organisms(organisms) do
+    Enum.map(organisms, fn(x) ->
+      Enum.map(organisms, fn(y) ->
+        # Ignore the case where an organism tries to mate itself
+        case elem(x, 1) == elem(y, 1) do
+          true -> 0
+          _ -> probabilitiy_homozygous_dominant({elem(x, 0), elem(y, 0)})
+        end
+      end)
+    end)
+  end
+
+  defp probabilitiy_homozygous_dominant(organisms) do
     case organisms do
-      ['n', 'n'] -> 0
-      ['n', 'm'] -> 0.5
-      ['m', 'n'] -> 0.5
-      ['m', 'm'] -> 0.75
+      {'n', 'n'} -> 0
+      {'n', 'm'} -> 0.5
+      {'m', 'n'} -> 0.5
+      {'m', 'm'} -> 0.75
       _ -> 1
     end
   end
 
-  def calculate_probability(num_homozygous_dominant) do
-    num_homozygous_dominant / @trials
+  defp calculate_probability(num_successes) do
+    # We use `@num_organisms - 1` to ignore the cases where the organism
+    # would have mated with iteslf
+    num_trials = @num_organisms * (@num_organisms - 1)
+    num_successes / num_trials
   end
 end
 
