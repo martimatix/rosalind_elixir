@@ -25,7 +25,6 @@ defmodule MendelFirstLaw do
     Enum.reduce(@dataset, [], fn(organism, acc) -> acc ++ make_copies(organism) end)
       |> Enum.with_index
       |> mate_organisms
-      |> List.flatten
       |> Enum.sum
       |> calculate_probability
   end
@@ -34,21 +33,16 @@ defmodule MendelFirstLaw do
     List.duplicate(elem(organism, 0), elem(organism, 1))
   end
 
-  # Mate every organism with another once and only once
+  # Mate every organism with another
   defp mate_organisms(organisms) do
-    Enum.map(organisms, fn(x) ->
-      Enum.map(organisms, fn(y) ->
-        # Ignore the case where an organism tries to mate itself
-        case elem(x, 1) == elem(y, 1) do
-          true -> 0
-          _ -> probabilitiy_homozygous_dominant({elem(x, 0), elem(y, 0)})
-        end
-      end)
-    end)
+    for x <- organisms,
+        y <- organisms,
+        elem(x, 1) != elem(y, 1),
+        do: probabilitiy_homozygous_dominant({elem(x, 0), elem(y, 0)})
   end
 
-  defp probabilitiy_homozygous_dominant(organisms) do
-    case organisms do
+  defp probabilitiy_homozygous_dominant(pair) do
+    case pair do
       {'n', 'n'} -> 0
       {'n', 'm'} -> 0.5
       {'m', 'n'} -> 0.5
