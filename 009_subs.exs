@@ -31,19 +31,12 @@
 defmodule Subs do
   @s 'GATATATGCATATACTT'
   @t 'ATAT'
-  @length_t length(@t)
 
-  def solve, do: solve(@s, 1, "")
-
-  def solve(s, index, acc) when length(s) >= @length_t do
-    [ _ | tail ] = s
-    case Enum.take(s, @length_t) do
-      @t -> solve(tail, index + 1, acc <> "#{index} ")
-      _  -> solve(tail, index + 1, acc)
-    end
+  def solve do
+    for i <- 0..(length(@s) - length(@t)),
+      Enum.slice(@s, i..(i + length(@t) - 1)) == @t,
+      do: "#{ i + 1 } "
   end
-
-  def solve(_, _, acc), do: acc
 end
 
 IO.puts Subs.solve
