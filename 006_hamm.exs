@@ -19,5 +19,5 @@ dna1 = 'GAGCCTACTAACGGGAT'
 dna2 = 'CATCGTAATGACGGCCT'
 
 Enum.zip(dna1, dna2)
-  |> Enum.count(&(elem(&1, 0) != elem(&1, 1)))
-  |> IO.inspect
+|> Enum.count(&(elem(&1, 0) != elem(&1, 1)))
+|> IO.inspect

@@ -7,14 +7,14 @@ defmodule Fasta do
   # and second is the FASTA string
   def read(filename) do
     File.stream!(filename)
-      |> Stream.map(fn(line) -> String.rstrip(line) end)
-      |> compile
+    |> Stream.map(fn(line) -> String.rstrip(line) end)
+    |> compile
   end
 
   # Returns a single tuple - for when there is only FASTA in the file
   def read(filename, :single) do
     read(filename)
-      |> List.first
+    |> List.first
   end
 
   def compile(lines) do

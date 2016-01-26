@@ -12,6 +12,6 @@
 
 fib = Stream.unfold({1, 1}, fn {a, b} -> {a, {b, k * a + b}} end)
 fib
-  |> Enum.take(n)
-  |> List.last
-  |> IO.inspect
+|> Enum.take(n)
+|> List.last
+|> IO.inspect

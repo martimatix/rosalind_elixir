@@ -22,6 +22,6 @@ Code.require_file "rosalind_module.exs", __DIR__
 dna = "AAAACCCGGT"
 
 IO.puts dna
-          |> String.reverse
-          |> String.codepoints
-          |> Enum.map(&Rosalind.complement(&1))
+        |> String.reverse
+        |> String.codepoints
+        |> Enum.map(&Rosalind.complement(&1))

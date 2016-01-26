@@ -23,10 +23,10 @@ defmodule MendelFirstLaw do
 
   def solve do
     Enum.reduce(@dataset, [], fn(organism, acc) -> acc ++ make_copies(organism) end)
-      |> Enum.with_index
-      |> mate_organisms
-      |> Enum.sum
-      |> calculate_probability
+    |> Enum.with_index
+    |> mate_organisms
+    |> Enum.sum
+    |> calculate_probability
   end
 
   defp make_copies(organism) do

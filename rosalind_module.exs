@@ -32,17 +32,18 @@ defmodule Rosalind do
   end
 
   def gc_content(dna) do
-    gc_count = dna
-                |> String.codepoints
-                |> Enum.count(&(&1 == "G" || &1 == "C"))
+    gc_count =
+      dna
+      |> String.codepoints
+      |> Enum.count(&(&1 == "G" || &1 == "C"))
     gc_count / String.length(dna) * 100
   end
 
   def rna_to_protein(rna) do
     rna
-      |> Stream.chunk(3)
-      |> Stream.map(&(@rna_codon_table[&1]))
-      |> Stream.take_while(&(&1 != :Stop))
-      |> Enum.to_list
+    |> Stream.chunk(3)
+    |> Stream.map(&(@rna_codon_table[&1]))
+    |> Stream.take_while(&(&1 != :Stop))
+    |> Enum.to_list
   end
 end
